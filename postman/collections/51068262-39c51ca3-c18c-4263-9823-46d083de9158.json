@@ -1,0 +1,2451 @@
+{
+	"info": {
+		"_postman_id": "51068262-39c51ca3-c18c-4263-9823-46d083de9158",
+		"name": "GAIL GAS - MRA MeterReading.svc (complete)",
+		"description": "All implemented MeterReading.svc/json actions and invoice methods. Set baseUrl, userName and password, run Login_V1, then set regional/customer/bill variables from real records. Readable bodies are automatically encrypted using the server WCF format; responses are verified and decrypted in Tests/Visualize. Uses Postman built-in crypto-js. Upload requests require choosing local files. Run selected workflows: write aliases are alternatives and a full collection run repeats writes/password changes. See src/docs/mra-mobile-postman.md for setup, limitations and cURL use.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 - Login and device",
+			"item": [
+				{
+					"name": "Login_V1",
+					"id": "51068262-4e352632-6277-4ad3-b0de-aa6287ad4de3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\": \"{{userName}}\",\n  \"Password\": \"{{password}}\",\n    \"MfaCode\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/Login_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"Login_V1"
+							]
+						},
+						"description": "Login aliases. Run one to capture Token, GatewayToken, UserID, GAId and Key. Set gaCode explicitly if needed; the current login GAEntities value is not a reliable region name.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"id": "51068262-b7a766b0-0b88-483d-9b6f-450490a28eff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\": \"{{userName}}\",\n  \"Password\": \"{{password}}\",\n  \"MfaCode\": \"{{mfaCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/Login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"Login"
+							]
+						},
+						"description": "Login aliases. Run one to capture Token, GatewayToken, UserID, GAId and Key. Set gaCode explicitly if needed; the current login GAEntities value is not a reliable region name.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "VerifyIMEI",
+					"id": "51068262-830dcd9d-c0db-4215-8d06-5f5cafa75a9c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"IMEINo\": \"{{imei}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/VerifyIMEI",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"VerifyIMEI"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterStatusList_V1",
+					"id": "51068262-ebd13217-8511-4c00-852c-182dbeb7089b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MeterStatusList_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MeterStatusList_V1"
+							]
+						},
+						"description": "Returns regional master data. Select valid meter/payment/bank IDs from this response.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterStatusList",
+					"id": "51068262-d097a4b1-7a2b-42bc-89ae-643a129a7305",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MeterStatusList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MeterStatusList"
+							]
+						},
+						"description": "Returns regional master data. Select valid meter/payment/bank IDs from this response.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-f913161a-c37c-4d58-834b-c239c1dd2365"
+		},
+		{
+			"name": "02 - Bills, history and house locks",
+			"item": [
+				{
+					"name": "GetBillListPaging",
+					"id": "51068262-98ab6e70-f7e8-41b6-ace1-ccd4924e0aaa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetBillListPaging",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetBillListPaging"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetBillListBySearch",
+					"id": "51068262-83e97d38-9ffb-468b-83d5-23384f4262cc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\",\n  \"Search\": \"{{search}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetBillListBySearch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetBillListBySearch"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistory",
+					"id": "51068262-4c7f6f64-69d7-4da1-b970-bae85fd4fbc6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingHistory",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistory"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistory_V2",
+					"id": "51068262-6056ba96-6b40-4a63-b033-63e23ddefb9a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingHistory_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistory_V2"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearch",
+					"id": "51068262-685cc642-3c75-4b5c-80cf-cf91c0f26a75",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\",\n  \"Search\": \"{{search}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingHistoryBySearch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearch"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearch_V2",
+					"id": "51068262-1fb36127-aa7c-4f51-a150-e3854528f852",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\",\n  \"Search\": \"{{search}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingHistoryBySearch_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearch_V2"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearchByAny",
+					"id": "51068262-b5e7560c-bbbd-441b-a1fa-4a1b384afc59",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\",\n  \"Search\": \"{{search}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingHistoryBySearchByAny",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearchByAny"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearchByAny_V2",
+					"id": "51068262-06282c2b-11a3-4210-a2d2-d57ab091f628",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\",\n  \"Search\": \"{{search}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingHistoryBySearchByAny_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearchByAny_V2"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingDataForHouseLock",
+					"id": "51068262-cca49458-0e40-44ae-8e5a-3dbaa0e70ae6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingDataForHouseLock",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingDataForHouseLock"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingDataForHouseLockBySearch",
+					"id": "51068262-08c0e7ec-6871-45d2-98d0-f758c50a0656",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"PageNo\": \"{{pageNo}}\",\n  \"AssignedBillsId\": \"{{assignedBillsId}}\",\n  \"Search\": \"{{search}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetMeterReadingDataForHouseLockBySearch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingDataForHouseLockBySearch"
+							]
+						},
+						"description": "PageNo is the legacy wire field; pageNo is the collection variable. Page size is controlled by the server PAGE_SIZE setting. Select consumerNumber, cycle, billNumber and demandMasterId from the desired record.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-9307a0cc-6f8f-4a44-8385-a2c23041d732"
+		},
+		{
+			"name": "03 - Customer and complaints",
+			"item": [
+				{
+					"name": "CustomerReport",
+					"id": "51068262-3d4b1a46-6ee8-466d-8d88-cba9fb33d3c5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/CustomerReport",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"CustomerReport"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "GetComplainData",
+					"id": "51068262-c870820a-a43d-41d4-9d29-8254b252fd99",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"BPNumber\": \"{{consumerNumber}}\",\n  \"Flag\": 1,\n  \"MeterType\": \"{{meterType}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/GetComplainData",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"GetComplainData"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "AddComplainData",
+					"id": "51068262-e0724299-11a5-433d-aaa9-e21daf305ba1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"BPNumber\": \"{{consumerNumber}}\",\n  \"Flag\": 1,\n  \"BPName\": \"\",\n  \"EmailId\": \"\",\n  \"MobileNo\": \"\",\n  \"Address\": \"\",\n  \"MeterType\": \"{{meterType}}\",\n  \"Remarks\": \"Meter reading complaint\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/AddComplainData",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"AddComplainData"
+							]
+						},
+						"description": "Creates a complaint. Flag 1 uses BP number; confirm lookup values before submitting.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "AddComplainDataMultipart",
+					"id": "51068262-9df632df-db5f-4dd8-a336-c37ae5402013",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"BPNumber\": \"{{consumerNumber}}\",\n  \"Flag\": 1,\n  \"BPName\": \"\",\n  \"EmailId\": \"\",\n  \"MobileNo\": \"\",\n  \"Address\": \"\",\n  \"MeterType\": \"{{meterType}}\",\n  \"Remarks\": \"Meter reading complaint\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/AddComplainDataMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"AddComplainDataMultipart"
+							]
+						},
+						"description": "Creates a complaint. Flag 1 uses BP number; confirm lookup values before submitting.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-523fdef8-5fdc-4f09-bbd7-33b21b4c0d4f"
+		},
+		{
+			"name": "04 - Submit meter readings",
+			"item": [
+				{
+					"name": "SendOTPForMeterReading",
+					"id": "51068262-b05e2bbb-d92c-4043-bda9-30916c3ee2c9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/SendOTPForMeterReading",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"SendOTPForMeterReading"
+							]
+						},
+						"description": "Current backend only stores the generated OTP in memory; it does not deliver or return it. This is a backend dependency, not Postman automation.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPI",
+					"id": "51068262-f0374c70-4ba9-4683-93ad-a2570020891d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"AddedBy\": \"{{userId}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"MeterStatusId\": \"{{meterStatusId}}\",\n  \"MeterNumber\": \"{{meterNumber}}\",\n  \"MeterType\": \"{{meterType}}\",\n  \"MeterCompanyId\": \"{{meterCompanyId}}\",\n  \"PreviousReading\": \"{{previousReading}}\",\n  \"CurrentReading\": \"{{currentReading}}\",\n  \"UnitUsed\": \"{{unitUsed}}\",\n  \"ReadingTypeId\": 1,\n  \"OTP\": \"{{meterOtp}}\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\",\n  \"Remarks\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MeterReadingAPI",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPI"
+							]
+						},
+						"description": "Writes a meter reading. These are alternative versions, not sequential steps. Use actual assigned bill data. V3 additionally checks cycle, demand, duplicate readings and dates. Blank OTP is accepted by current handlers; V3 currently checks a supplied OTP against its static server constant.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultipart",
+					"id": "51068262-d245bc30-1a41-4f4a-9e8b-e5db8b4af8af",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"AddedBy\": \"{{userId}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"MeterStatusId\": \"{{meterStatusId}}\",\n  \"MeterNumber\": \"{{meterNumber}}\",\n  \"MeterType\": \"{{meterType}}\",\n  \"MeterCompanyId\": \"{{meterCompanyId}}\",\n  \"PreviousReading\": \"{{previousReading}}\",\n  \"CurrentReading\": \"{{currentReading}}\",\n  \"UnitUsed\": \"{{unitUsed}}\",\n  \"ReadingTypeId\": 1,\n  \"OTP\": \"{{meterOtp}}\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\",\n  \"Remarks\": \"\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MeterReadingAPIMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultipart"
+							]
+						},
+						"description": "Writes a meter reading. These are alternative versions, not sequential steps. Use actual assigned bill data. V3 additionally checks cycle, demand, duplicate readings and dates. Blank OTP is accepted by current handlers; V3 currently checks a supplied OTP against its static server constant.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultipart_V1",
+					"id": "51068262-e5289e28-1083-43f1-968b-e050f0f8fad1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"AddedBy\": \"{{userId}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"MeterStatusId\": \"{{meterStatusId}}\",\n  \"MeterNumber\": \"{{meterNumber}}\",\n  \"MeterType\": \"{{meterType}}\",\n  \"MeterCompanyId\": \"{{meterCompanyId}}\",\n  \"PreviousReading\": \"{{previousReading}}\",\n  \"CurrentReading\": \"{{currentReading}}\",\n  \"UnitUsed\": \"{{unitUsed}}\",\n  \"ReadingTypeId\": 1,\n  \"OTP\": \"{{meterOtp}}\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\",\n  \"Remarks\": \"\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MeterReadingAPIMultipart_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultipart_V1"
+							]
+						},
+						"description": "Writes a meter reading. These are alternative versions, not sequential steps. Use actual assigned bill data. V3 additionally checks cycle, demand, duplicate readings and dates. Blank OTP is accepted by current handlers; V3 currently checks a supplied OTP against its static server constant.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultipart_V2",
+					"id": "51068262-81d1f3fd-d1b5-4c7c-b7f9-0fcea3b9bbcf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"AddedBy\": \"{{userId}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"MeterStatusId\": \"{{meterStatusId}}\",\n  \"MeterNumber\": \"{{meterNumber}}\",\n  \"MeterType\": \"{{meterType}}\",\n  \"MeterCompanyId\": \"{{meterCompanyId}}\",\n  \"PreviousReading\": \"{{previousReading}}\",\n  \"CurrentReading\": \"{{currentReading}}\",\n  \"UnitUsed\": \"{{unitUsed}}\",\n  \"ReadingTypeId\": 1,\n  \"OTP\": \"{{meterOtp}}\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\",\n  \"Remarks\": \"\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MeterReadingAPIMultipart_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultipart_V2"
+							]
+						},
+						"description": "Writes a meter reading. These are alternative versions, not sequential steps. Use actual assigned bill data. V3 additionally checks cycle, demand, duplicate readings and dates. Blank OTP is accepted by current handlers; V3 currently checks a supplied OTP against its static server constant.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultipart_V3",
+					"id": "51068262-5fce4e6c-5b57-47eb-9aa8-b32352da1b28",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"AddedBy\": \"{{userId}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"MeterStatusId\": \"{{meterStatusId}}\",\n  \"MeterNumber\": \"{{meterNumber}}\",\n  \"MeterType\": \"{{meterType}}\",\n  \"MeterCompanyId\": \"{{meterCompanyId}}\",\n  \"PreviousReading\": \"{{previousReading}}\",\n  \"CurrentReading\": \"{{currentReading}}\",\n  \"UnitUsed\": \"{{unitUsed}}\",\n  \"ReadingTypeId\": 1,\n  \"OTP\": \"{{meterOtp}}\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\",\n  \"Remarks\": \"\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MeterReadingAPIMultipart_V3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultipart_V3"
+							]
+						},
+						"description": "Writes a meter reading. These are alternative versions, not sequential steps. Use actual assigned bill data. V3 additionally checks cycle, demand, duplicate readings and dates. Blank OTP is accepted by current handlers; V3 currently checks a supplied OTP against its static server constant.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "DigitalSignature",
+					"id": "51068262-8d95a23f-851a-4b26-98e6-b2608afba453",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"MeterReadingId\": \"{{meterReadingId}}\",\n  \"DigitalSignatureImg\": \"{{signatureBase64}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/DigitalSignature",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"DigitalSignature"
+							]
+						},
+						"description": "Attach the signature to a saved meter reading. JSON requires base64 image bytes; multipart requires a file.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "DigitalSignatureMultipart",
+					"id": "51068262-056b410f-85b8-43d0-b9a8-ea0f8a23cd09",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"MeterReadingId\": \"{{meterReadingId}}\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/DigitalSignatureMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"DigitalSignatureMultipart"
+							]
+						},
+						"description": "Attach the signature to a saved meter reading. JSON requires base64 image bytes; multipart requires a file.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "MRNotificationArrivalStatusSent",
+					"id": "51068262-c62fc069-c700-4235-b381-e708b3075674",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"DemandMasterId\": \"{{demandMasterId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/MRNotificationArrivalStatusSent",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"MRNotificationArrivalStatusSent"
+							]
+						},
+						"description": "Exact implemented action name. Requires a registered customer device.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-53cc0eaa-bea7-4481-87d5-abdce54a484e"
+		},
+		{
+			"name": "05 - Bill receipts",
+			"item": [
+				{
+					"name": "BillReceiptDetailByBPNumber",
+					"id": "51068262-959d8096-45da-4b69-a75f-c469982a9881",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"BPNumber\": \"{{consumerNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/BillReceiptDetailByBPNumber",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDetailByBPNumber"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptData",
+					"id": "51068262-aa1ff6c6-3c3f-4d87-9fa9-e06fef95b5f7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"PayableAmount\": \"{{payableAmount}}\",\n  \"PaidAmount\": \"{{paidAmount}}\",\n  \"PaymentTypeId\": \"{{paymentTypeId}}\",\n  \"ChequeNumber\": \"{{chequeNumber}}\",\n  \"ChequeDDDate\": \"{{chequeDDDate}}\",\n  \"BankId\": \"{{bankId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/BillReceiptData",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"BillReceiptData"
+							]
+						},
+						"description": "Creates a payment receipt and may finalize payment/send notifications. Choose one alias for the actual payment.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDataMultipart",
+					"id": "51068262-1e6ba68a-bad9-4992-a839-4b704cace71b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"PayableAmount\": \"{{payableAmount}}\",\n  \"PaidAmount\": \"{{paidAmount}}\",\n  \"PaymentTypeId\": \"{{paymentTypeId}}\",\n  \"ChequeNumber\": \"{{chequeNumber}}\",\n  \"ChequeDDDate\": \"{{chequeDDDate}}\",\n  \"BankId\": \"{{bankId}}\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/BillReceiptDataMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDataMultipart"
+							]
+						},
+						"description": "Creates a payment receipt and may finalize payment/send notifications. Choose one alias for the actual payment.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDataMultipart_Params",
+					"id": "51068262-454e11bf-c59e-4fa8-9ffd-3ed0b7140c2f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"Cycle\": \"{{cycle}}\",\n  \"BillNumber\": \"{{billNumber}}\",\n  \"PayableAmount\": \"{{payableAmount}}\",\n  \"PaidAmount\": \"{{paidAmount}}\",\n  \"PaymentTypeId\": \"{{paymentTypeId}}\",\n  \"ChequeNumber\": \"{{chequeNumber}}\",\n  \"ChequeDDDate\": \"{{chequeDDDate}}\",\n  \"BankId\": \"{{bankId}}\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/BillReceiptDataMultipart_Params",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDataMultipart_Params"
+							]
+						},
+						"description": "Creates a payment receipt and may finalize payment/send notifications. Choose one alias for the actual payment.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDigitalSignature",
+					"id": "51068262-80ef41c4-13e9-481c-8bca-7ea09db78c21",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"BillReceiptId\": \"{{billReceiptId}}\",\n  \"BillReceiptNumber\": \"{{billReceiptNumber}}\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\",\n  \"DigitalSignatureImg\": \"{{signatureBase64}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/BillReceiptDigitalSignature",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDigitalSignature"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDigitalSignatureMultipart",
+					"id": "51068262-56c4c618-374c-4e94-903f-738d5fc38e4f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"BillReceiptId\": \"{{billReceiptId}}\",\n  \"BillReceiptNumber\": \"{{billReceiptNumber}}\",\n  \"Latitude\": \"{{latitude}}\",\n  \"Longitude\": \"{{longitude}}\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/BillReceiptDigitalSignatureMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDigitalSignatureMultipart"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-e1788584-a10b-448d-ac1c-676b6d535553"
+		},
+		{
+			"name": "06 - OCR",
+			"item": [
+				{
+					"name": "PassOCR",
+					"id": "51068262-3bb7d71d-5a18-462c-9216-76542881ece7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"OCRText\": \"00123.45\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/PassOCR",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"PassOCR"
+							]
+						},
+						"description": "Extracts a number from supplied OCRText. Image-only OCR is not configured in the backend. File upload is optional when OCRText is supplied.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "OCR",
+					"id": "51068262-e8d2a985-10b7-46ad-bdc6-d27fe56fd517",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payload",
+									"value": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"ConsumerNumber\": \"{{consumerNumber}}\",\n  \"OCRText\": \"00123.45\"\n}",
+									"type": "text",
+									"description": "Client-side JSON template; removed before sending."
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Choose a local image. Required for multipart signature requests; up to 25 MB per file.",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/OCR",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"OCR"
+							]
+						},
+						"description": "Extracts a number from supplied OCRText. Image-only OCR is not configured in the backend. File upload is optional when OCRText is supplied.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-315b69d9-865f-4453-9fd6-c86ab9453888"
+		},
+		{
+			"name": "07 - Invoice PDF",
+			"item": [
+				{
+					"name": "GET InvoicePDFPrint",
+					"id": "51068262-6ad43c07-06ad-457e-a790-59de63187cc1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{gatewayToken}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/pdf"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/InvoicePDFPrint?consumerNumber={{consumerNumber}}&demandMasterId={{demandMasterId}}&gaCode={{gaCode}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"InvoicePDFPrint"
+							],
+							"query": [
+								{
+									"key": "consumerNumber",
+									"value": "{{consumerNumber}}"
+								},
+								{
+									"key": "demandMasterId",
+									"value": "{{demandMasterId}}"
+								},
+								{
+									"key": "gaCode",
+									"value": "{{gaCode}}"
+								}
+							]
+						},
+						"description": "Uses GatewayToken JWT, not the opaque login Token. Unencrypted parameters. Use Send and Download to save the PDF."
+					},
+					"response": []
+				},
+				{
+					"name": "POST InvoicePDFPrint",
+					"id": "51068262-ae0415b0-93bc-48a9-b2ad-67c8f7650d07",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Token",
+								"value": "{{gatewayToken}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/pdf"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"consumerNumber\": \"{{consumerNumber}}\",\n  \"demandMasterId\": \"{{demandMasterId}}\",\n  \"gaCode\": \"{{gaCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/InvoicePDFPrint",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"InvoicePDFPrint"
+							]
+						},
+						"description": "Uses GatewayToken JWT, not the opaque login Token. Unencrypted parameters. Use Send and Download to save the PDF."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-c3ded290-14af-40f0-8d9c-acafc0824e5d"
+		},
+		{
+			"name": "08 - Password workflows",
+			"item": [
+				{
+					"name": "ChangePassword",
+					"id": "51068262-de661979-16bb-472f-85c0-bffaaea1f504",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": \"{{userId}}\",\n  \"GAId\": \"{{gaId}}\",\n  \"GaCode\": \"{{gaCode}}\",\n  \"OldPassword\": \"{{password}}\",\n  \"NewPassword\": \"{{newPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/ChangePassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"ChangePassword"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPasswordEmailRequest",
+					"id": "51068262-0da8d75f-a240-429a-994e-b001bc44b2f9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EmailId\": \"{{emailId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/ForgotPasswordEmailRequest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"ForgotPasswordEmailRequest"
+							]
+						},
+						"description": "\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "OTPVerification",
+					"id": "51068262-ca487eeb-c6a1-41e8-ab47-db73363a9c10",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EmailId\": \"{{emailId}}\",\n  \"OTP\": \"{{otp}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/OTPVerification",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"OTPVerification"
+							]
+						},
+						"description": "Enter the delivered password-reset OTP. Captures ResetToken.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "NewPasswordChange",
+					"id": "51068262-4bcb1cfb-6baa-4045-858b-3b1fdafa5721",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EmailId\": \"{{emailId}}\",\n  \"UserId\": \"{{userId}}\",\n  \"NewPassword\": \"{{newPassword}}\",\n  \"ResetToken\": \"{{resetToken}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/NewPasswordChange",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"NewPasswordChange"
+							]
+						},
+						"description": "Alternative reset endpoints. ResetToken is single-use; obtain a new proof before another reset.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				},
+				{
+					"name": "ResetPassword",
+					"id": "51068262-039f8f46-ac4a-4119-9983-d446c35d76c0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EmailId\": \"{{emailId}}\",\n  \"UserId\": \"{{userId}}\",\n  \"NewPassword\": \"{{newPassword}}\",\n  \"ResetToken\": \"{{resetToken}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MeterReading.svc/json/ResetPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MeterReading.svc",
+								"json",
+								"ResetPassword"
+							]
+						},
+						"description": "Alternative reset endpoints. ResetToken is single-use; obtain a new proof before another reset.\n\nEdit the readable JSON in the Body (or the form-data payload field). The pre-request script encrypts it automatically. Responses are decrypted in Tests and shown in Visualize. Variables use collection scope; avoid environment variables shadowing captured tokens/IDs."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-105b93e1-8aef-4224-aa0f-6a0fe9b68a22"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "df4fc935-c882-4f47-960b-dc46856ff6e0",
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"// The saved body remains readable; only the outgoing request is transformed.",
+					"const action = pm.request.url.path.slice(-1)[0].toLowerCase();",
+					"if (action != 'invoicepdfprint') {",
+					"  const CryptoJS = require('crypto-js');",
+					"  const key = String(pm.variables.get('encryptionKey') || '').replace(/\\s+/g, '').toLowerCase();",
+					"  if (!/^[a-f0-9]{64}$/.test(key)) throw new Error('encryptionKey must match the server MRA_REQUEST_ENCRYPTION_KEY (64 hex characters).');",
+					"  let template;",
+					"  if (pm.request.body.mode == 'formdata') template = pm.request.body.formdata.get('payload');",
+					"  else template = pm.request.body.raw;",
+					"  // Resolve each parsed value so passwords containing quotes/backslashes remain valid JSON.",
+					"  const resolve = (value) => {",
+					"    if (typeof value == 'string') {",
+					"      const resolved = pm.variables.replaceIn(value);",
+					"      if (/{{[^{}]+}}/.test(resolved)) throw new Error('Unresolved variable: ' + value);",
+					"      return resolved;",
+					"    }",
+					"    if (Array.isArray(value)) return value.map(resolve);",
+					"    if (value && typeof value == 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, resolve(v)]));",
+					"    return value;",
+					"  };",
+					"  const payload = resolve(JSON.parse(template));",
+					"  if (/^login(?:_v1)?$/.test(action) && (!payload.UserName || !payload.Password)) throw new Error('Set userName and password in collection variables.');",
+					"  const iv = CryptoJS.lib.WordArray.random(16).toString();",
+					"  const hmacKey = CryptoJS.lib.WordArray.random(16).toString();",
+					"  const cipher = CryptoJS.AES.encrypt(JSON.stringify(payload), CryptoJS.enc.Hex.parse(key), {",
+					"    iv: CryptoJS.enc.Hex.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7,",
+					"  }).ciphertext.toString();",
+					"  const mac = CryptoJS.HmacSHA256(iv + cipher + key, CryptoJS.enc.Utf8.parse(hmacKey)).toString();",
+					"  const encrypted = iv + hmacKey + mac + cipher;",
+					"  pm.variables.set('lastMessageRequest', encrypted);",
+					"  if (pm.request.body.mode == 'formdata') {",
+					"    pm.request.body.formdata.remove('payload');",
+					"    pm.request.body.formdata.upsert({ key: 'MessageRequest', value: encrypted, type: 'text' });",
+					"  } else pm.request.body.update(JSON.stringify({ MessageRequest: encrypted }));",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "900fe043-3a38-46fe-92b7-d4c0e2e567f7",
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"const action = pm.request.url.path.slice(-1)[0].toLowerCase();",
+					"pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+					"if (action == 'invoicepdfprint') {",
+					"  pm.test('PDF response', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/pdf'));",
+					"} else {",
+					"  const CryptoJS = require('crypto-js');",
+					"  const body = pm.response.json();",
+					"  pm.test('Encrypted WCF envelope', () => pm.expect(body.MessageResponse).to.be.a('string'));",
+					"  if (body.MessageResponse) {",
+					"    const key = String(pm.variables.get('encryptionKey')).replace(/\\s+/g, '').toLowerCase();",
+					"    const value = body.MessageResponse;",
+					"    const iv = value.slice(0, 32), hmacKey = value.slice(32, 64), mac = value.slice(64, 128), cipher = value.slice(128);",
+					"    const expected = CryptoJS.HmacSHA256(iv + cipher + key, CryptoJS.enc.Utf8.parse(hmacKey)).toString();",
+					"    pm.test('Response HMAC verified', () => pm.expect(mac.toLowerCase()).to.equal(expected));",
+					"    if (mac.toLowerCase() != expected) throw new Error('Response HMAC mismatch; check encryptionKey.');",
+					"    const plaintext = CryptoJS.AES.decrypt({ ciphertext: CryptoJS.enc.Hex.parse(cipher) }, CryptoJS.enc.Hex.parse(key), {",
+					"      iv: CryptoJS.enc.Hex.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7,",
+					"    }).toString(CryptoJS.enc.Utf8);",
+					"    const result = JSON.parse(plaintext);",
+					"    pm.variables.set('lastDecryptedResponse', plaintext);",
+					"    pm.visualizer.set('<pre>{{response}}</pre>', { response: JSON.stringify(result, null, 2) });",
+					"    pm.test('Business success: ' + (result.Message || ''), () => pm.expect(Number(result.Status)).to.equal(1));",
+					"    const data = Array.isArray(result.ResponseData) ? result.ResponseData[0] : result.ResponseData;",
+					"    if (data && (Number(result.Status) == 1 || (Number(result.Status) == 5 && /^login/.test(action)))) {",
+					"      const capture = (field, variable) => {",
+					"        if (data[field] != null && String(data[field]) != '') pm.collectionVariables.set(variable, String(data[field]));",
+					"      };",
+					"      if (/^login(?:_v1)?$/.test(action)) {",
+					"        [['Token', 'token'], ['GatewayToken', 'gatewayToken'], ['Key', 'encryptionKey'], ['UserID', 'userId'], ['GAId', 'gaId'], ['EmailId', 'emailId']].forEach(([field, variable]) => capture(field, variable));",
+					"      }",
+					"      if (action == 'otpverification') capture('ResetToken', 'resetToken');",
+					"      if (/^meterreadingapi/.test(action)) capture('MeterReadingId', 'meterReadingId');",
+					"      if (/^billreceiptdata/.test(action)) {",
+					"        capture('BillReceiptId', 'billReceiptId'); capture('BillReceiptNumber', 'billReceiptNumber');",
+					"      }",
+					"    }",
+					"  }",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://127.0.0.1:3000"
+		},
+		{
+			"key": "encryptionKey",
+			"value": "220405fc991ea41893452f81cae10f58d05db237b9c602825b04fa311dd631a7"
+		},
+		{
+			"key": "userName",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "mfaCode",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "gatewayToken",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "gaId",
+			"value": ""
+		},
+		{
+			"key": "gaCode",
+			"value": ""
+		},
+		{
+			"key": "consumerNumber",
+			"value": ""
+		},
+		{
+			"key": "pageNo",
+			"value": "1"
+		},
+		{
+			"key": "search",
+			"value": ""
+		},
+		{
+			"key": "assignedBillsId",
+			"value": "0"
+		},
+		{
+			"key": "emailId",
+			"value": ""
+		},
+		{
+			"key": "otp",
+			"value": ""
+		},
+		{
+			"key": "meterOtp",
+			"value": ""
+		},
+		{
+			"key": "newPassword",
+			"value": ""
+		},
+		{
+			"key": "resetToken",
+			"value": ""
+		},
+		{
+			"key": "imei",
+			"value": ""
+		},
+		{
+			"key": "cycle",
+			"value": ""
+		},
+		{
+			"key": "billNumber",
+			"value": ""
+		},
+		{
+			"key": "demandMasterId",
+			"value": ""
+		},
+		{
+			"key": "meterReadingId",
+			"value": ""
+		},
+		{
+			"key": "billReceiptId",
+			"value": ""
+		},
+		{
+			"key": "billReceiptNumber",
+			"value": ""
+		},
+		{
+			"key": "meterNumber",
+			"value": ""
+		},
+		{
+			"key": "meterType",
+			"value": ""
+		},
+		{
+			"key": "meterCompanyId",
+			"value": ""
+		},
+		{
+			"key": "meterStatusId",
+			"value": ""
+		},
+		{
+			"key": "previousReading",
+			"value": ""
+		},
+		{
+			"key": "currentReading",
+			"value": ""
+		},
+		{
+			"key": "unitUsed",
+			"value": ""
+		},
+		{
+			"key": "paidAmount",
+			"value": ""
+		},
+		{
+			"key": "payableAmount",
+			"value": ""
+		},
+		{
+			"key": "paymentTypeId",
+			"value": ""
+		},
+		{
+			"key": "bankId",
+			"value": ""
+		},
+		{
+			"key": "chequeNumber",
+			"value": ""
+		},
+		{
+			"key": "chequeDDDate",
+			"value": ""
+		},
+		{
+			"key": "latitude",
+			"value": ""
+		},
+		{
+			"key": "longitude",
+			"value": ""
+		},
+		{
+			"key": "signatureBase64",
+			"value": ""
+		}
+	]
+}
