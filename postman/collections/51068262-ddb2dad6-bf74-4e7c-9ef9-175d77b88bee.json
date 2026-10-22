@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "51068262-ddb2dad6-bf74-4e7c-9ef9-175d77b88bee",
 		"name": "GAILGAS_WCF — Meter Reading",
-		"description": "46 REST operations plus 2 scaffold SOAP operations. Set staticKey, UserName and Password in the collection Variables tab, select No environment, then send Login_V1. The companion environment is optional and overrides collection values when selected. Login captures token, sessionKey, UserId and GAId. Responses are decrypted in Visualize and collection variable lastResponse. See README.txt. Run write operations individually; running the entire collection invokes password changes, uploads, receipts and notifications.",
+		"description": "This dot net based API collection  \n46 REST operations plus 2 scaffold SOAP operations. Set staticKey, UserName and Password in the collection Variables tab, select No environment, then send Login_V1. The companion environment is optional and overrides collection values when selected. Login captures token, sessionKey, UserId and GAId. Responses are decrypted in Visualize and collection variable lastResponse. See README.txt. Run write operations individually; running the entire collection invokes password changes, uploads, receipts and notifications.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
