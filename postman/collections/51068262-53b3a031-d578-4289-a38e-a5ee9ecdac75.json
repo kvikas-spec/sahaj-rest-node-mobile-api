@@ -1,0 +1,638 @@
+{
+	"info": {
+		"_postman_id": "51068262-53b3a031-d578-4289-a38e-a5ee9ecdac75",
+		"name": "GailGas Employee Mobile APIs",
+		"description": "Complete implemented employee-mobile-routes workflow: six POST actions, all four supported report combinations, and PDF GET (10 requests). Set baseUrl, employeeEmail, employeePassword, mfaCode and bpNumber; run Login first. Uses native Web Crypto in current Postman, with automatic WCF AES-256-CBC/HMAC encryption and response verification. Edit readable JSON bodies normally; scripts encrypt on send. See Visualize for decrypted responses. Login/session variables are saved automatically. Static key must match server EMPLOYEE_REQUEST_ENCRYPTION_KEY. Complaints use static encryption, not the session key. GET action dispatcher is declared but has no implemented GET actions. Set request timeout to 0 for long-running reports. See src/docs/employee-mobile-postman.md.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"id": "51068262-cff0cf04-dff9-4c30-b029-0d2b15910074",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Email\": \"{{employeeEmail}}\",\n  \"Password\": \"{{employeePassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/Login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"Login"
+							]
+						},
+						"description": "Active AD employee account required (IsADUsers = 1). Supply password in plaintext here; the script encrypts the complete payload. MFA enrollment and a fresh authenticator code are required. Saves Token, Key and ProflieInfo.UserId. A new login invalidates previous employee tokens."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-2745a216-eaab-42aa-846d-b82a45d2316d"
+		},
+		{
+			"name": "02 Customer",
+			"item": [
+				{
+					"name": "SearchBpNumber",
+					"id": "51068262-1a1567d0-7799-4ef6-9286-cca149e63699",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ConsumerNumber\": \"{{bpNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/SearchBpNumber",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"SearchBpNumber"
+							]
+						},
+						"description": "Requires login and a valid BP number. Uses the session encryption key and Token header."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-22de447d-1e06-4dae-8c8d-ad905acc18a5"
+		},
+		{
+			"name": "03 Complaints",
+			"item": [
+				{
+					"name": "GetPendingComplaints",
+					"id": "51068262-4743d597-2b4b-4e5f-87dc-c071783c3685",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Limit\": \"{{pendingLimit}}\",\n  \"ConsumerNumber\": \"{{complaintConsumerNumber}}\",\n  \"ComplaintNumber\": \"{{complaintNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/GetPendingComplaints",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"GetPendingComplaints"
+							]
+						},
+						"description": "Optional exact-match filters; leave blank for all pending complaints. Limit 1–200. Stores the first returned ComplaintRegisterId for subsequent requests. Uses the static key; this handler does not validate an employee token."
+					},
+					"response": []
+				},
+				{
+					"name": "GetComplaintDetails",
+					"id": "51068262-944d9533-ea70-448d-91f0-e4ae75d21494",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ComplaintRegisterId\": \"{{complaintRegisterId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/GetComplaintDetails",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"GetComplaintDetails"
+							]
+						},
+						"description": "Existing nonzero ComplaintRegisterId required. Uses the static employee key."
+					},
+					"response": []
+				},
+				{
+					"name": "GetComplaintTrackingHistory",
+					"id": "51068262-9d651edd-1bd8-48b1-a1a5-9692f4dc1141",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ComplaintRegisterId\": \"{{complaintRegisterId}}\",\n  \"Limit\": \"{{trackingLimit}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/GetComplaintTrackingHistory",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"GetComplaintTrackingHistory"
+							]
+						},
+						"description": "Limit 1–500. An empty history is a valid response. Uses the static employee key."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-a5c3803a-4af6-4108-bf4c-c84bcbf1bcd6"
+		},
+		{
+			"name": "04 Reports",
+			"item": [
+				{
+					"name": "Reports - GA-wise progress - GAIL Gas",
+					"id": "51068262-5970b98a-5997-4b2b-a4aa-933238c01df5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ReportFlag\": 1,\n  \"Company\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/Reports",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"Reports"
+							]
+						},
+						"description": "Requires login. Generates a PDF and stores its PDFUrl in reportUrl. Stored procedures can take more than five minutes; set Postman request timeout to 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Reports - GA-wise progress - GAIL",
+					"id": "51068262-1a1f3cd7-58a7-439b-aa50-c539db77ade8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ReportFlag\": 1,\n  \"Company\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/Reports",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"Reports"
+							]
+						},
+						"description": "Requires login. Generates a PDF and stores its PDFUrl in reportUrl. Stored procedures can take more than five minutes; set Postman request timeout to 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Reports - Daily-wise progress - GAIL Gas",
+					"id": "51068262-fb242961-31a7-4a1b-8be4-949f09ae3647",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ReportFlag\": 2,\n  \"Company\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/Reports",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"Reports"
+							]
+						},
+						"description": "Requires login. Generates a PDF and stores its PDFUrl in reportUrl. Stored procedures can take more than five minutes; set Postman request timeout to 0."
+					},
+					"response": []
+				},
+				{
+					"name": "Reports - Daily-wise progress - GAIL",
+					"id": "51068262-7d870620-e551-42df-a70b-3a214602ddb1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ReportFlag\": 2,\n  \"Company\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/EmployeeAppWCF.svc/json/Reports",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"EmployeeAppWCF.svc",
+								"json",
+								"Reports"
+							]
+						},
+						"description": "Requires login. Generates a PDF and stores its PDFUrl in reportUrl. Stored procedures can take more than five minutes; set Postman request timeout to 0."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-c04519de-e6bc-4323-97a0-37b61b455f3e"
+		},
+		{
+			"name": "05 PDF download",
+			"item": [
+				{
+					"name": "Download latest report PDF",
+					"id": "51068262-e894f483-1fb7-43e3-b1e6-d48257f2082c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{reportUrl}}",
+							"host": [
+								"{{reportUrl}}"
+							]
+						},
+						"description": "Run any Reports request first. Downloads its exact returned PDFUrl (/PDFReport/local/<filename>). Use Save Response to save the PDF. No Token header required."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-5a7b4f77-e350-4b20-a579-ca157c9ff436"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "19cd80c7-c12a-4f12-a770-0bf18156e019",
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"class EmployeeCrypto {",
+					"  static hex(bytes) { return Array.from(new Uint8Array(bytes), b => b.toString(16).padStart(2, '0')).join(''); }",
+					"  static bytes(hex) { return new Uint8Array(hex.match(/../g).map(b => parseInt(b, 16))); }",
+					"  static normalize(key) {",
+					"    key = String(key || '').replace(/\\s+/g, '').toLowerCase();",
+					"    if (!/^[a-f0-9]{64}$/.test(key)) throw new Error('Employee encryption key must contain 64 hex characters. Run Login first for session requests.');",
+					"    return key;",
+					"  }",
+					"  static async hmac(iv, cipher, key, hmacKey) {",
+					"    const signingKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(hmacKey), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);",
+					"    return this.hex(await crypto.subtle.sign('HMAC', signingKey, new TextEncoder().encode((iv + cipher + key).toLowerCase())));",
+					"  }",
+					"  static async encrypt(text, key) {",
+					"    key = this.normalize(key);",
+					"    const iv = this.hex(crypto.getRandomValues(new Uint8Array(16)));",
+					"    const hmacKey = this.hex(crypto.getRandomValues(new Uint8Array(16)));",
+					"    const aes = await crypto.subtle.importKey('raw', this.bytes(key), 'AES-CBC', false, ['encrypt']);",
+					"    const cipher = this.hex(await crypto.subtle.encrypt({ name: 'AES-CBC', iv: this.bytes(iv) }, aes, new TextEncoder().encode(text)));",
+					"    return iv + hmacKey + await this.hmac(iv, cipher, key, hmacKey) + cipher;",
+					"  }",
+					"  static async decrypt(value, key) {",
+					"    key = this.normalize(key);",
+					"    if (!/^[a-f0-9]+$/i.test(value) || value.length <= 128 || (value.length - 128) % 32 != 0) throw new Error('Invalid WCF response envelope');",
+					"    const iv = value.slice(0, 32), hmacKey = value.slice(32, 64), signature = value.slice(64, 128), cipher = value.slice(128);",
+					"    if (await this.hmac(iv, cipher, key, hmacKey) != signature.toLowerCase()) throw new Error('Response HMAC does not match this key');",
+					"    const aes = await crypto.subtle.importKey('raw', this.bytes(key), 'AES-CBC', false, ['decrypt']);",
+					"    return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-CBC', iv: this.bytes(iv) }, aes, this.bytes(cipher))));",
+					"  }",
+					"}",
+					"if (pm.request.method == 'POST') {",
+					"  const action = pm.request.url.toString().split('/').pop().toLowerCase();",
+					"  const session = ['searchbpnumber', 'reports'].includes(action);",
+					"  const key = pm.variables.get(session ? 'employeeRequestKey' : 'employeeStaticKey');",
+					"  const body = JSON.parse(pm.request.body.raw);",
+					"  // Resolve individual JSON values so quotes and backslashes in passwords remain valid JSON.",
+					"  for (const name of Object.keys(body)) {",
+					"    if (typeof body[name] == 'string') body[name] = pm.variables.replaceIn(body[name]);",
+					"    if (typeof body[name] == 'string' && /{{[^}]+}}/.test(body[name])) throw new Error('Unresolved variable for ' + name);",
+					"  }",
+					"  if (action == 'login' && (!body.Email || !body.Password)) throw new Error('Set employeeEmail, employeePassword and a fresh six-digit mfaCode.');",
+					"  if (session && !pm.variables.get('token')) throw new Error('Run Login first.');",
+					"  if (action == 'searchbpnumber' && !body.ConsumerNumber) throw new Error('Set bpNumber to an existing consumer number.');",
+					"  if ('ComplaintRegisterId' in body && !(Number(body.ComplaintRegisterId) > 0)) throw new Error('Run GetPendingComplaints or set complaintRegisterId.');",
+					"  for (const name of ['ComplaintRegisterId', 'Limit']) if (name in body) body[name] = Number(body[name]);",
+					"  pm.variables.set('employeeResponseKey', EmployeeCrypto.normalize(key));",
+					"  const clearName = action == 'reports' ? 'reportUrl' : action == 'getpendingcomplaints' ? 'complaintRegisterId' : '';",
+					"  if (clearName) {",
+					"    pm.collectionVariables.set(clearName, '');",
+					"    if (pm.environment.has(clearName)) pm.environment.set(clearName, '');",
+					"  }",
+					"  if (action == 'login') {",
+					"    for (const name of ['token', 'employeeRequestKey', 'userId']) {",
+					"      pm.collectionVariables.unset(name);",
+					"      if (pm.environment.has(name)) pm.environment.unset(name);",
+					"    }",
+					"  }",
+					"  pm.request.body.update(JSON.stringify({ MessageRequest: await EmployeeCrypto.encrypt(JSON.stringify(body), key) }));",
+					"} else if (!pm.variables.get('reportUrl')) {",
+					"  throw new Error('Run a Reports request successfully before downloading its PDF.');",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e20e30f3-94ba-477a-8bb6-7b5d2642f886",
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"class EmployeeCrypto {",
+					"  static hex(bytes) { return Array.from(new Uint8Array(bytes), b => b.toString(16).padStart(2, '0')).join(''); }",
+					"  static bytes(hex) { return new Uint8Array(hex.match(/../g).map(b => parseInt(b, 16))); }",
+					"  static normalize(key) {",
+					"    key = String(key || '').replace(/\\s+/g, '').toLowerCase();",
+					"    if (!/^[a-f0-9]{64}$/.test(key)) throw new Error('Employee encryption key must contain 64 hex characters. Run Login first for session requests.');",
+					"    return key;",
+					"  }",
+					"  static async hmac(iv, cipher, key, hmacKey) {",
+					"    const signingKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(hmacKey), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);",
+					"    return this.hex(await crypto.subtle.sign('HMAC', signingKey, new TextEncoder().encode((iv + cipher + key).toLowerCase())));",
+					"  }",
+					"  static async encrypt(text, key) {",
+					"    key = this.normalize(key);",
+					"    const iv = this.hex(crypto.getRandomValues(new Uint8Array(16)));",
+					"    const hmacKey = this.hex(crypto.getRandomValues(new Uint8Array(16)));",
+					"    const aes = await crypto.subtle.importKey('raw', this.bytes(key), 'AES-CBC', false, ['encrypt']);",
+					"    const cipher = this.hex(await crypto.subtle.encrypt({ name: 'AES-CBC', iv: this.bytes(iv) }, aes, new TextEncoder().encode(text)));",
+					"    return iv + hmacKey + await this.hmac(iv, cipher, key, hmacKey) + cipher;",
+					"  }",
+					"  static async decrypt(value, key) {",
+					"    key = this.normalize(key);",
+					"    if (!/^[a-f0-9]+$/i.test(value) || value.length <= 128 || (value.length - 128) % 32 != 0) throw new Error('Invalid WCF response envelope');",
+					"    const iv = value.slice(0, 32), hmacKey = value.slice(32, 64), signature = value.slice(64, 128), cipher = value.slice(128);",
+					"    if (await this.hmac(iv, cipher, key, hmacKey) != signature.toLowerCase()) throw new Error('Response HMAC does not match this key');",
+					"    const aes = await crypto.subtle.importKey('raw', this.bytes(key), 'AES-CBC', false, ['decrypt']);",
+					"    return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-CBC', iv: this.bytes(iv) }, aes, this.bytes(cipher))));",
+					"  }",
+					"}",
+					"pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+					"if (pm.request.method == 'GET') {",
+					"  pm.test('PDF content type', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/pdf'));",
+					"  pm.test('PDF signature', () => pm.expect(pm.response.text().slice(0, 5)).to.equal('%PDF-'));",
+					"} else {",
+					"  const raw = pm.response.json();",
+					"  let result = raw;",
+					"  if (raw.MessageResponse) {",
+					"    // Controller failures and unknown tokens can be encrypted with the static key.",
+					"    try { result = await EmployeeCrypto.decrypt(raw.MessageResponse, pm.variables.get('employeeResponseKey')); }",
+					"    catch (error) { result = await EmployeeCrypto.decrypt(raw.MessageResponse, pm.variables.get('employeeStaticKey')); }",
+					"  }",
+					"  pm.test('Business operation succeeded: ' + (result.ResponseMsg || result.message || ''), () => pm.expect(Number(result.ResponseCode)).to.equal(1));",
+					"  pm.test('ResponseData is an array', () => pm.expect(result.ResponseData).to.be.an('array'));",
+					"  const action = pm.request.url.toString().split('/').pop().toLowerCase();",
+					"  const first = (result.ResponseData || [])[0];",
+					"  if (Number(result.ResponseCode) == 1) {",
+					"    if (action == 'login') {",
+					"      pm.test('Login returned Token and Key', () => {",
+					"        pm.expect(first.Token).to.be.a('string').and.not.empty;",
+					"        pm.expect(first.Key).to.match(/^[a-f0-9]{64}$/i);",
+					"      });",
+					"      const values = { token: first.Token, employeeRequestKey: first.Key, userId: first.ProflieInfo.UserId };",
+					"      for (const [name, value] of Object.entries(values)) {",
+					"        pm.collectionVariables.set(name, value);",
+					"        if (pm.environment.has(name)) pm.environment.set(name, value);",
+					"      }",
+					"    }",
+					"    if (action == 'getpendingcomplaints' && first) {",
+					"      pm.collectionVariables.set('complaintRegisterId', first.ComplaintRegisterId);",
+					"      if (pm.environment.has('complaintRegisterId')) pm.environment.set('complaintRegisterId', first.ComplaintRegisterId);",
+					"    }",
+					"    if (action == 'reports') {",
+					"      pm.test('Report URL returned', () => pm.expect(first.PDFUrl).to.be.a('string').and.not.empty);",
+					"      const url = first.PDFUrl.startsWith('/') ? pm.variables.get('baseUrl').replace(/\\/$/, '') + first.PDFUrl : first.PDFUrl;",
+					"      pm.collectionVariables.set('reportUrl', url);",
+					"      if (pm.environment.has('reportUrl')) pm.environment.set('reportUrl', url);",
+					"    }",
+					"  }",
+					"  // Visualizer avoids persisting decrypted customer data or login credentials in extra variables.",
+					"  const display = JSON.parse(JSON.stringify(result));",
+					"  if (action == 'login' && display.ResponseData) display.ResponseData.forEach(row => { row.Token = '[stored in token]'; row.Key = '[stored in employeeRequestKey]'; });",
+					"  pm.visualizer.set('<pre>{{body}}</pre>', { body: JSON.stringify(display, null, 2) });",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "employeeEmail",
+			"value": ""
+		},
+		{
+			"key": "employeePassword",
+			"value": ""
+		},
+		{
+			"key": "mfaCode",
+			"value": ""
+		},
+		{
+			"key": "employeeStaticKey",
+			"value": "5b2123ffc2218cccca17531c07fd4a1c0cd0db84369f17f9cc1e2c7b40b4dc4c"
+		},
+		{
+			"key": "bpNumber",
+			"value": ""
+		},
+		{
+			"key": "complaintConsumerNumber",
+			"value": ""
+		},
+		{
+			"key": "complaintNumber",
+			"value": ""
+		},
+		{
+			"key": "complaintRegisterId",
+			"value": ""
+		},
+		{
+			"key": "pendingLimit",
+			"value": "50"
+		},
+		{
+			"key": "trackingLimit",
+			"value": "100"
+		},
+		{
+			"key": "reportUrl",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "employeeRequestKey",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		}
+	]
+}
