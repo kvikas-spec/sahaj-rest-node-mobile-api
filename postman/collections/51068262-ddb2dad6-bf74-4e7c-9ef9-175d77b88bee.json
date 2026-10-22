@@ -1,0 +1,2771 @@
+{
+	"info": {
+		"_postman_id": "51068262-ddb2dad6-bf74-4e7c-9ef9-175d77b88bee",
+		"name": "GAILGAS_WCF — Meter Reading",
+		"description": "46 REST operations plus 2 scaffold SOAP operations. Set staticKey, UserName and Password in the collection Variables tab, select No environment, then send Login_V1. The companion environment is optional and overrides collection values when selected. Login captures token, sessionKey, UserId and GAId. Responses are decrypted in Visualize and collection variable lastResponse. See README.txt. Run write operations individually; running the entire collection invokes password changes, uploads, receipts and notifications.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 Authentication",
+			"item": [
+				{
+					"name": "VerifyIMEI",
+					"id": "51068262-0427195b-0765-4844-a225-b360014b9d47",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"IMEINo\": \"{{IMEINo}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/VerifyIMEI",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"VerifyIMEI"
+							]
+						},
+						"description": "POST VerifyIMEI. Decrypted request model: IMEIModel. Uses staticKey from Web.config appSettings/statickey. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"id": "51068262-6e24e671-8cad-4857-a181-527a87d7dd6d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\": \"{{UserName}}\",\n  \"Password\": \"{{Password}}\",\n  \"deviceInfo\": {\n    \"MACAdress\": \"{{MACAdress}}\",\n    \"DeviceType\": \"{{DeviceType}}\",\n    \"MobileOS\": \"{{MobileOS}}\",\n    \"DeviceModel\": \"{{DeviceModel}}\",\n    \"DeviceToken\": \"{{DeviceToken}}\",\n    \"DeviceId\": \"{{DeviceId}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/Login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"Login"
+							]
+						},
+						"description": "POST Login. Decrypted request model: LoginModel. Uses staticKey from Web.config appSettings/statickey. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "Login_V1",
+					"id": "51068262-a364c057-92b7-4c42-8ae6-7daa12dce352",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserName\": \"{{UserName}}\",\n  \"Password\": \"{{Password}}\",\n  \"deviceInfo\": {\n    \"MACAdress\": \"{{MACAdress}}\",\n    \"DeviceType\": \"{{DeviceType}}\",\n    \"MobileOS\": \"{{MobileOS}}\",\n    \"DeviceModel\": \"{{DeviceModel}}\",\n    \"DeviceToken\": \"{{DeviceToken}}\",\n    \"DeviceId\": \"{{DeviceId}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/Login_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"Login_V1"
+							]
+						},
+						"description": "POST Login_V1. Decrypted request model: LoginModel. Uses staticKey from Web.config appSettings/statickey. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-d6949312-54ec-4c6a-92f5-cc5919fb31d8"
+		},
+		{
+			"name": "02 Lookup and history",
+			"item": [
+				{
+					"name": "GetBillListPaging",
+					"id": "51068262-19ebc198-df56-4df1-b813-e40593a628eb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"AssignedBillsId\": {\n    \"$number\": \"AssignedBillsId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetBillListPaging",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetBillListPaging"
+							]
+						},
+						"description": "POST GetBillListPaging. Decrypted request model: BillListModelPaging. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetBillListPaging_V1",
+					"id": "51068262-68191df6-0198-40a7-a268-033baf791ac7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"AssignedBillsId\": {\n    \"$number\": \"AssignedBillsId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetBillListPaging_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetBillListPaging_V1"
+							]
+						},
+						"description": "POST GetBillListPaging_V1. Decrypted request model: BillListModelPaging. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetBillListBySearch",
+					"id": "51068262-b521ed4a-755c-470b-8abd-26f0f7a70c73",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetBillListBySearch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetBillListBySearch"
+							]
+						},
+						"description": "POST GetBillListBySearch. Decrypted request model: BillListBySearchModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetBillListBySearch_V1",
+					"id": "51068262-75fb6c35-0e24-479a-b20b-3f40a4981fbd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetBillListBySearch_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetBillListBySearch_V1"
+							]
+						},
+						"description": "POST GetBillListBySearch_V1. Decrypted request model: BillListBySearchModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterStatusList",
+					"id": "51068262-e1048ee5-247d-4e1c-ae79-a0fce7adfc0b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MeterStatusList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MeterStatusList"
+							]
+						},
+						"description": "POST MeterStatusList. Decrypted request model: MasterRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterStatusList_V1",
+					"id": "51068262-2fcc5ce5-a23c-4df1-933c-8983ed2e4b80",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MeterStatusList_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MeterStatusList_V1"
+							]
+						},
+						"description": "POST MeterStatusList_V1. Decrypted request model: MasterRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingDataForHouselock",
+					"id": "51068262-387a1ae0-21fa-4b72-8bcf-68809a0227ab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"AssignedBillsId\": {\n    \"$number\": \"AssignedBillsId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingDataForHouselock",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingDataForHouselock"
+							]
+						},
+						"description": "POST GetMeterReadingDataForHouselock. Decrypted request model: BillListModelPaging. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingDataForHouselock_V1",
+					"id": "51068262-ad9362a0-7bf0-49f5-b33b-0a1fac692b0c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"AssignedBillsId\": {\n    \"$number\": \"AssignedBillsId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingDataForHouselock_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingDataForHouselock_V1"
+							]
+						},
+						"description": "POST GetMeterReadingDataForHouselock_V1. Decrypted request model: BillListModelPaging. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingDataForHouselockBySearch",
+					"id": "51068262-9035a046-4b5b-493f-976d-c956dbf3c51e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingDataForHouselockBySearch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingDataForHouselockBySearch"
+							]
+						},
+						"description": "POST GetMeterReadingDataForHouselockBySearch. Decrypted request model: BillListBySearchModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingDataForHouselockBySearch_V1",
+					"id": "51068262-53cec75c-a666-4180-bde0-e590dd22cdca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingDataForHouselockBySearch_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingDataForHouselockBySearch_V1"
+							]
+						},
+						"description": "POST GetMeterReadingDataForHouselockBySearch_V1. Decrypted request model: BillListBySearchModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistory",
+					"id": "51068262-a53924db-191b-4806-8dd2-7aba05187aaf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistory",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistory"
+							]
+						},
+						"description": "POST GetMeterReadingHistory. Decrypted request model: MeterReadingHistoryReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistory_V1",
+					"id": "51068262-24e09acb-2496-4210-aaeb-f146ec3abfe8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistory_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistory_V1"
+							]
+						},
+						"description": "POST GetMeterReadingHistory_V1. Decrypted request model: MeterReadingHistoryReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistory_V2",
+					"id": "51068262-5a4afe22-7f4c-4ce1-97f9-8f58546c2923",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistory_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistory_V2"
+							]
+						},
+						"description": "POST GetMeterReadingHistory_V2. Decrypted request model: MeterReadingHistoryReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearch",
+					"id": "51068262-b6bdc5c1-db21-46a4-84a0-4ad8a05f58c6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistoryBySearch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearch"
+							]
+						},
+						"description": "POST GetMeterReadingHistoryBySearch. Decrypted request model: MeterReadingHistorySearchReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearch_V1",
+					"id": "51068262-d9a73304-84fc-4628-8144-59dd8fcb2f79",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistoryBySearch_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearch_V1"
+							]
+						},
+						"description": "POST GetMeterReadingHistoryBySearch_V1. Decrypted request model: MeterReadingHistorySearchReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearch_V2",
+					"id": "51068262-b1d410c5-9e32-4bed-aaef-74d5c83e1447",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistoryBySearch_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearch_V2"
+							]
+						},
+						"description": "POST GetMeterReadingHistoryBySearch_V2. Decrypted request model: MeterReadingHistorySearchReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "CustomerReport",
+					"id": "51068262-293dccf5-9837-41fa-9345-1b930d3f2d85",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"BPNumber\": {\n    \"$number\": \"BPNumber\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/CustomerReport",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"CustomerReport"
+							]
+						},
+						"description": "POST CustomerReport. Decrypted request model: CustomerReportRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetComplainData",
+					"id": "51068262-e015238e-d407-443c-ab3e-53d6e545f0be",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Flag\": {\n    \"$number\": \"Flag\"\n  },\n  \"BPNumber\": \"{{BPNumber}}\",\n  \"MeterType\": \"{{MeterType}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetComplainData",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetComplainData"
+							]
+						},
+						"description": "POST GetComplainData. Decrypted request model: ComplainDataRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearchByAny",
+					"id": "51068262-6219f7cd-f597-41a1-a1fa-0ddaa590db0f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistoryBySearchByAny",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearchByAny"
+							]
+						},
+						"description": "POST GetMeterReadingHistoryBySearchByAny. Decrypted request model: MeterReadingHistorySearchReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearchByAny_V1",
+					"id": "51068262-089ea01c-7732-44af-8061-82abe762b21f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistoryBySearchByAny_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearchByAny_V1"
+							]
+						},
+						"description": "POST GetMeterReadingHistoryBySearchByAny_V1. Decrypted request model: MeterReadingHistorySearchReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "GetMeterReadingHistoryBySearchByAny_V2",
+					"id": "51068262-13be881c-32df-4c72-a8be-ca038c2a774c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"Search\": \"{{Search}}\",\n  \"PageNo\": {\n    \"$number\": \"PageNo\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/GetMeterReadingHistoryBySearchByAny_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"GetMeterReadingHistoryBySearchByAny_V2"
+							]
+						},
+						"description": "POST GetMeterReadingHistoryBySearchByAny_V2. Decrypted request model: MeterReadingHistorySearchReq. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-25f23824-940f-4e5f-9cbd-ec6dd015c4c8"
+		},
+		{
+			"name": "03 Meter readings and signatures",
+			"item": [
+				{
+					"name": "MeterReadingAPI",
+					"id": "51068262-5b2e5385-c5a2-47af-bb32-9e39765231fc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ConsumerNumber\": {\n    \"$number\": \"ConsumerNumber\"\n  },\n  \"WardId\": {\n    \"$number\": \"WardId\"\n  },\n  \"ReadingDateStr\": \"{{ReadingDateStr}}\",\n  \"MeterStatusId\": {\n    \"$number\": \"MeterStatusId\"\n  },\n  \"PreviousReading\": {\n    \"$number\": \"PreviousReading\"\n  },\n  \"CurrentReading\": {\n    \"$number\": \"CurrentReading\"\n  },\n  \"UnitUsed\": {\n    \"$number\": \"UnitUsed\"\n  },\n  \"OTP\": \"{{OTP}}\",\n  \"AddedBy\": {\n    \"$number\": \"UserId\"\n  },\n  \"Remarks\": \"{{Remarks}}\",\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"MeterType\": \"{{MeterType}}\",\n  \"MeterNumber\": \"{{MeterNumber}}\",\n  \"MeterReadingImage\": \"{{MeterReadingImage}}\",\n  \"MeterBillReceiptImagePath\": \"{{MeterBillReceiptImagePath}}\",\n  \"DigitalSignatureImagePath\": \"{{DigitalSignatureImagePath}}\",\n  \"MeterCompanyId\": {\n    \"$number\": \"MeterCompanyId\"\n  },\n  \"IsApproved\": null,\n  \"ApprovedRejectedBy\": null,\n  \"ApprovedRejectedDate\": null,\n  \"IsSelfBilling\": false,\n  \"OCRDateGenerated\": \"2026-10-22T00:00:00\",\n  \"OCRDateUpdated\": \"2026-10-22T00:00:00\",\n  \"OCRResponse\": {\n    \"Status\": {\n      \"$number\": \"Status\"\n    },\n    \"BPNumber\": {\n      \"$number\": \"BPNumber\"\n    },\n    \"Message\": \"{{Message}}\",\n    \"OCRResponseData\": {\n      \"MeterNumber\": \"{{MeterNumber}}\",\n      \"MeterReading\": \"{{MeterReading}}\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MeterReadingAPI",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPI"
+							]
+						},
+						"description": "POST MeterReadingAPI. Decrypted request model: ReadingVM. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultiPart",
+					"id": "51068262-12c50150-297c-4f67-88f8-9fbe2b43890b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ConsumerNumber\": {\n    \"$number\": \"ConsumerNumber\"\n  },\n  \"WardId\": {\n    \"$number\": \"WardId\"\n  },\n  \"ReadingDateStr\": \"{{ReadingDateStr}}\",\n  \"MeterStatusId\": {\n    \"$number\": \"MeterStatusId\"\n  },\n  \"PreviousReading\": {\n    \"$number\": \"PreviousReading\"\n  },\n  \"CurrentReading\": {\n    \"$number\": \"CurrentReading\"\n  },\n  \"UnitUsed\": {\n    \"$number\": \"UnitUsed\"\n  },\n  \"OTP\": \"{{OTP}}\",\n  \"AddedBy\": {\n    \"$number\": \"UserId\"\n  },\n  \"Remarks\": \"{{Remarks}}\",\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"MeterType\": \"{{MeterType}}\",\n  \"MeterNumber\": \"{{MeterNumber}}\",\n  \"MeterReadingImage\": \"{{MeterReadingImage}}\",\n  \"MeterBillReceiptImagePath\": \"{{MeterBillReceiptImagePath}}\",\n  \"DigitalSignatureImagePath\": \"{{DigitalSignatureImagePath}}\",\n  \"MeterCompanyId\": {\n    \"$number\": \"MeterCompanyId\"\n  },\n  \"IsApproved\": null,\n  \"ApprovedRejectedBy\": null,\n  \"ApprovedRejectedDate\": null,\n  \"IsSelfBilling\": false,\n  \"OCRDateGenerated\": \"2026-10-22T00:00:00\",\n  \"OCRDateUpdated\": \"2026-10-22T00:00:00\",\n  \"OCRResponse\": {\n    \"Status\": {\n      \"$number\": \"Status\"\n    },\n    \"BPNumber\": {\n      \"$number\": \"BPNumber\"\n    },\n    \"Message\": \"{{Message}}\",\n    \"OCRResponseData\": {\n      \"MeterNumber\": \"{{MeterNumber}}\",\n      \"MeterReading\": \"{{MeterReading}}\"\n    }\n  }\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MeterReadingAPIMultiPart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultiPart"
+							]
+						},
+						"description": "POST MeterReadingAPIMultiPart. Decrypted request model: ReadingVM. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultiPart_V1",
+					"id": "51068262-afdd3c26-1e10-4428-a2a2-131e18dd3db6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ConsumerNumber\": {\n    \"$number\": \"ConsumerNumber\"\n  },\n  \"WardId\": {\n    \"$number\": \"WardId\"\n  },\n  \"ReadingDateStr\": \"{{ReadingDateStr}}\",\n  \"MeterStatusId\": {\n    \"$number\": \"MeterStatusId\"\n  },\n  \"PreviousReading\": {\n    \"$number\": \"PreviousReading\"\n  },\n  \"CurrentReading\": {\n    \"$number\": \"CurrentReading\"\n  },\n  \"UnitUsed\": {\n    \"$number\": \"UnitUsed\"\n  },\n  \"OTP\": \"{{OTP}}\",\n  \"AddedBy\": {\n    \"$number\": \"UserId\"\n  },\n  \"Remarks\": \"{{Remarks}}\",\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"MeterType\": \"{{MeterType}}\",\n  \"MeterNumber\": \"{{MeterNumber}}\",\n  \"MeterReadingImage\": \"{{MeterReadingImage}}\",\n  \"MeterBillReceiptImagePath\": \"{{MeterBillReceiptImagePath}}\",\n  \"DigitalSignatureImagePath\": \"{{DigitalSignatureImagePath}}\",\n  \"MeterCompanyId\": {\n    \"$number\": \"MeterCompanyId\"\n  },\n  \"IsApproved\": null,\n  \"ApprovedRejectedBy\": null,\n  \"ApprovedRejectedDate\": null,\n  \"IsSelfBilling\": false,\n  \"OCRDateGenerated\": \"2026-10-22T00:00:00\",\n  \"OCRDateUpdated\": \"2026-10-22T00:00:00\",\n  \"OCRResponse\": {\n    \"Status\": {\n      \"$number\": \"Status\"\n    },\n    \"BPNumber\": {\n      \"$number\": \"BPNumber\"\n    },\n    \"Message\": \"{{Message}}\",\n    \"OCRResponseData\": {\n      \"MeterNumber\": \"{{MeterNumber}}\",\n      \"MeterReading\": \"{{MeterReading}}\"\n    }\n  }\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MeterReadingAPIMultiPart_V1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultiPart_V1"
+							]
+						},
+						"description": "POST MeterReadingAPIMultiPart_V1. Decrypted request model: ReadingVM. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultiPart_V2",
+					"id": "51068262-3d4873b9-dbdd-4d48-8cc2-6f1ce1ee021b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ConsumerNumber\": {\n    \"$number\": \"ConsumerNumber\"\n  },\n  \"WardId\": {\n    \"$number\": \"WardId\"\n  },\n  \"ReadingDateStr\": \"{{ReadingDateStr}}\",\n  \"MeterStatusId\": {\n    \"$number\": \"MeterStatusId\"\n  },\n  \"PreviousReading\": {\n    \"$number\": \"PreviousReading\"\n  },\n  \"CurrentReading\": {\n    \"$number\": \"CurrentReading\"\n  },\n  \"UnitUsed\": {\n    \"$number\": \"UnitUsed\"\n  },\n  \"OTP\": \"{{OTP}}\",\n  \"AddedBy\": {\n    \"$number\": \"UserId\"\n  },\n  \"Remarks\": \"{{Remarks}}\",\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"MeterType\": \"{{MeterType}}\",\n  \"MeterNumber\": \"{{MeterNumber}}\",\n  \"MeterReadingImage\": \"{{MeterReadingImage}}\",\n  \"MeterBillReceiptImagePath\": \"{{MeterBillReceiptImagePath}}\",\n  \"DigitalSignatureImagePath\": \"{{DigitalSignatureImagePath}}\",\n  \"MeterCompanyId\": {\n    \"$number\": \"MeterCompanyId\"\n  },\n  \"IsApproved\": null,\n  \"ApprovedRejectedBy\": null,\n  \"ApprovedRejectedDate\": null,\n  \"IsSelfBilling\": false,\n  \"OCRDateGenerated\": \"2026-10-22T00:00:00\",\n  \"OCRDateUpdated\": \"2026-10-22T00:00:00\",\n  \"OCRResponse\": {\n    \"Status\": {\n      \"$number\": \"Status\"\n    },\n    \"BPNumber\": {\n      \"$number\": \"BPNumber\"\n    },\n    \"Message\": \"{{Message}}\",\n    \"OCRResponseData\": {\n      \"MeterNumber\": \"{{MeterNumber}}\",\n      \"MeterReading\": \"{{MeterReading}}\"\n    }\n  }\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MeterReadingAPIMultiPart_V2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultiPart_V2"
+							]
+						},
+						"description": "POST MeterReadingAPIMultiPart_V2. Decrypted request model: ReadingVM. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "MeterReadingAPIMultiPart_V3",
+					"id": "51068262-592d32f3-d7e2-496d-993f-127150fe12ff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ConsumerNumber\": {\n    \"$number\": \"ConsumerNumber\"\n  },\n  \"WardId\": {\n    \"$number\": \"WardId\"\n  },\n  \"ReadingDateStr\": \"{{ReadingDateStr}}\",\n  \"MeterStatusId\": {\n    \"$number\": \"MeterStatusId\"\n  },\n  \"PreviousReading\": {\n    \"$number\": \"PreviousReading\"\n  },\n  \"CurrentReading\": {\n    \"$number\": \"CurrentReading\"\n  },\n  \"UnitUsed\": {\n    \"$number\": \"UnitUsed\"\n  },\n  \"OTP\": \"{{OTP}}\",\n  \"AddedBy\": {\n    \"$number\": \"UserId\"\n  },\n  \"Remarks\": \"{{Remarks}}\",\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"MeterType\": \"{{MeterType}}\",\n  \"MeterNumber\": \"{{MeterNumber}}\",\n  \"MeterReadingImage\": \"{{MeterReadingImage}}\",\n  \"MeterBillReceiptImagePath\": \"{{MeterBillReceiptImagePath}}\",\n  \"DigitalSignatureImagePath\": \"{{DigitalSignatureImagePath}}\",\n  \"MeterCompanyId\": {\n    \"$number\": \"MeterCompanyId\"\n  },\n  \"IsApproved\": null,\n  \"ApprovedRejectedBy\": null,\n  \"ApprovedRejectedDate\": null,\n  \"IsSelfBilling\": false,\n  \"OCRDateGenerated\": \"2026-10-22T00:00:00\",\n  \"OCRDateUpdated\": \"2026-10-22T00:00:00\",\n  \"OCRResponse\": {\n    \"Status\": {\n      \"$number\": \"Status\"\n    },\n    \"BPNumber\": {\n      \"$number\": \"BPNumber\"\n    },\n    \"Message\": \"{{Message}}\",\n    \"OCRResponseData\": {\n      \"MeterNumber\": \"{{MeterNumber}}\",\n      \"MeterReading\": \"{{MeterReading}}\"\n    }\n  }\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MeterReadingAPIMultiPart_V3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MeterReadingAPIMultiPart_V3"
+							]
+						},
+						"description": "POST MeterReadingAPIMultiPart_V3. Decrypted request model: ReadingVM. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "DigitalSignature",
+					"id": "51068262-43095d79-e51e-4688-a8cb-70f1e8f15327",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"MeterReadingId\": {\n    \"$number\": \"MeterReadingId\"\n  },\n  \"DigitalSignatureImg\": \"{{DigitalSignatureImg}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/DigitalSignature",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"DigitalSignature"
+							]
+						},
+						"description": "POST DigitalSignature. Decrypted request model: DigitalSignatureModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "DigitalSignatureMultipart",
+					"id": "51068262-4f3151d3-cd88-42fb-bbe1-2c200a756f67",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"MeterReadingId\": {\n    \"$number\": \"MeterReadingId\"\n  },\n  \"DigitalSignatureImg\": \"{{DigitalSignatureImg}}\"\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/DigitalSignatureMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"DigitalSignatureMultipart"
+							]
+						},
+						"description": "POST DigitalSignatureMultipart. Decrypted request model: DigitalSignatureModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-6f6335f5-dab3-40c6-baf0-a32187cbb389"
+		},
+		{
+			"name": "04 Receipts",
+			"item": [
+				{
+					"name": "BillReceiptDetailByBPNumber",
+					"id": "51068262-a4318188-9796-4f0d-8e95-0c1660b354fe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"BPNumber\": {\n    \"$number\": \"BPNumber\"\n  },\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/BillReceiptDetailByBPNumber",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDetailByBPNumber"
+							]
+						},
+						"description": "POST BillReceiptDetailByBPNumber. Decrypted request model: BillReceiptRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptData",
+					"id": "51068262-8fec10b1-fc86-4cbd-915d-50c80fe33371",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"BPNumber\": {\n    \"$number\": \"BPNumber\"\n  },\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ChequeImage\": \"{{ChequeImage}}\",\n  \"PaidAmount\": {\n    \"$number\": \"PaidAmount\"\n  },\n  \"ChequeDDDate\": \"{{ChequeDDDate}}\",\n  \"ChequeNumber\": \"{{ChequeNumber}}\",\n  \"BankId\": {\n    \"$number\": \"BankId\"\n  },\n  \"OtherBankName\": \"{{OtherBankName}}\",\n  \"PaymentTypeId\": {\n    \"$number\": \"PaymentTypeId\"\n  },\n  \"PayableAmount\": {\n    \"$number\": \"PayableAmount\"\n  },\n  \"BillNumber\": {\n    \"$number\": \"BillNumber\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/BillReceiptData",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"BillReceiptData"
+							]
+						},
+						"description": "POST BillReceiptData. Decrypted request model: BillReceiptDataRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDataMultipart",
+					"id": "51068262-0e507676-1b46-4eea-9f11-cea44b4b9cc7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"BPNumber\": {\n    \"$number\": \"BPNumber\"\n  },\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ChequeImage\": \"{{ChequeImage}}\",\n  \"PaidAmount\": {\n    \"$number\": \"PaidAmount\"\n  },\n  \"ChequeDDDate\": \"{{ChequeDDDate}}\",\n  \"ChequeNumber\": \"{{ChequeNumber}}\",\n  \"BankId\": {\n    \"$number\": \"BankId\"\n  },\n  \"OtherBankName\": \"{{OtherBankName}}\",\n  \"PaymentTypeId\": {\n    \"$number\": \"PaymentTypeId\"\n  },\n  \"PayableAmount\": {\n    \"$number\": \"PayableAmount\"\n  },\n  \"BillNumber\": {\n    \"$number\": \"BillNumber\"\n  }\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/BillReceiptDataMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDataMultipart"
+							]
+						},
+						"description": "POST BillReceiptDataMultipart. Decrypted request model: BillReceiptDataRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDigitalSignature",
+					"id": "51068262-d17a98b6-27df-443b-97b3-f136ff41a7ec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"BillReceiptId\": {\n    \"$number\": \"BillReceiptId\"\n  },\n  \"BillReceiptNumber\": \"{{BillReceiptNumber}}\",\n  \"DigitalSignatureImg\": \"{{DigitalSignatureImg}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/BillReceiptDigitalSignature",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDigitalSignature"
+							]
+						},
+						"description": "POST BillReceiptDigitalSignature. Decrypted request model: BillReceiptDigitalSign. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDataMultipart_Params",
+					"id": "51068262-48597126-f449-42e4-8fd5-5bfa6356efa7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"BPNumber\": {\n    \"$number\": \"BPNumber\"\n  },\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"Cycle\": {\n    \"$number\": \"Cycle\"\n  },\n  \"ChequeImage\": \"{{ChequeImage}}\",\n  \"PaidAmount\": {\n    \"$number\": \"PaidAmount\"\n  },\n  \"ChequeDDDate\": \"{{ChequeDDDate}}\",\n  \"ChequeNumber\": \"{{ChequeNumber}}\",\n  \"BankId\": {\n    \"$number\": \"BankId\"\n  },\n  \"OtherBankName\": \"{{OtherBankName}}\",\n  \"PaymentTypeId\": {\n    \"$number\": \"PaymentTypeId\"\n  },\n  \"PayableAmount\": {\n    \"$number\": \"PayableAmount\"\n  },\n  \"BillNumber\": {\n    \"$number\": \"BillNumber\"\n  }\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/BillReceiptDataMultipart_Params",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDataMultipart_Params"
+							]
+						},
+						"description": "POST BillReceiptDataMultipart_Params. Decrypted request model: BillReceiptDataRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "BillReceiptDigitalSignatureMultipart",
+					"id": "51068262-d377a42b-a8ff-49a2-b337-6a5a999d991a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\",\n  \"BillReceiptId\": {\n    \"$number\": \"BillReceiptId\"\n  },\n  \"BillReceiptNumber\": \"{{BillReceiptNumber}}\",\n  \"DigitalSignatureImg\": \"{{DigitalSignatureImg}}\"\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/BillReceiptDigitalSignatureMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"BillReceiptDigitalSignatureMultipart"
+							]
+						},
+						"description": "POST BillReceiptDigitalSignatureMultipart. Decrypted request model: BillReceiptDigitalSign. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-07ee9240-2e84-4acf-837e-1fa5d43692dc"
+		},
+		{
+			"name": "05 Complaints",
+			"item": [
+				{
+					"name": "AddComplainData",
+					"id": "51068262-578b8b09-e97e-409f-9df8-75364885a60c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Flag\": {\n    \"$number\": \"Flag\"\n  },\n  \"BPNumber\": \"{{BPNumber}}\",\n  \"BPName\": \"{{BPName}}\",\n  \"EmailId\": \"{{EmailId}}\",\n  \"MobileNo\": \"{{MobileNo}}\",\n  \"Address\": \"{{Address}}\",\n  \"MeterType\": \"{{MeterType}}\",\n  \"Remarks\": \"{{Remarks}}\",\n  \"Image\": \"{{Image}}\",\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/AddComplainData",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"AddComplainData"
+							]
+						},
+						"description": "POST AddComplainData. Decrypted request model: AddComplianDataRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "AddComplainDataMultipart",
+					"id": "51068262-9e387d00-5951-47b1-ba88-4fd42964ca9b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "RequestData",
+									"value": "{{encryptedRequest}}",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"description": "Select the image to upload.",
+									"value": null
+								},
+								{
+									"key": "_payload",
+									"value": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Flag\": {\n    \"$number\": \"Flag\"\n  },\n  \"BPNumber\": \"{{BPNumber}}\",\n  \"BPName\": \"{{BPName}}\",\n  \"EmailId\": \"{{EmailId}}\",\n  \"MobileNo\": \"{{MobileNo}}\",\n  \"Address\": \"{{Address}}\",\n  \"MeterType\": \"{{MeterType}}\",\n  \"Remarks\": \"{{Remarks}}\",\n  \"Image\": \"{{Image}}\",\n  \"Latitude\": \"{{Latitude}}\",\n  \"Longitude\": \"{{Longitude}}\"\n}",
+									"type": "text",
+									"description": "Local plaintext template; never sent.",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/AddComplainDataMultipart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"AddComplainDataMultipart"
+							]
+						},
+						"description": "POST AddComplainDataMultipart. Decrypted request model: AddComplianDataRequestModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. In Body, edit the disabled _payload template and select an image for file. Keep _payload disabled and RequestData enabled. Postman supplies the multipart boundary. The server accepts the file by IsFile, regardless of its field name. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-3921a196-a7af-462d-8052-5edcbc9526e6"
+		},
+		{
+			"name": "06 Password recovery",
+			"item": [
+				{
+					"name": "ChangePassword",
+					"id": "51068262-260b2b8e-8ed7-4be8-a5f4-e5f34241510c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"OldPassword\": \"{{OldPassword}}\",\n  \"NewPassword\": \"{{NewPassword}}\",\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/ChangePassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"ChangePassword"
+							]
+						},
+						"description": "POST ChangePassword. Decrypted request model: ChangePasswordModel. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPasswordEmailRequest",
+					"id": "51068262-bb532d99-003c-4391-b51b-847a5631f78e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EmailId\": \"{{EmailId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/ForgotPasswordEmailRequest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"ForgotPasswordEmailRequest"
+							]
+						},
+						"description": "POST ForgotPasswordEmailRequest. Decrypted request model: ForgotPasswordEmailRequest. Uses staticKey from Web.config appSettings/statickey. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "OTPVerification",
+					"id": "51068262-121db75a-a228-4fb4-ab97-6a524be7bb70",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EmailId\": \"{{EmailId}}\",\n  \"OTP\": \"{{OTP}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/OTPVerification",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"OTPVerification"
+							]
+						},
+						"description": "POST OTPVerification. Decrypted request model: OTPVerificationRequest. Uses staticKey from Web.config appSettings/statickey. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers."
+					},
+					"response": []
+				},
+				{
+					"name": "NewPasswordChange",
+					"id": "51068262-ea3af2a1-5581-4c0b-a7cb-67e4a81399ab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"NewPassword\": \"{{NewPassword}}\",\n  \"EmailId\": \"{{EmailId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/NewPasswordChange",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"NewPasswordChange"
+							]
+						},
+						"description": "POST NewPasswordChange. Decrypted request model: NewPasswordRequest. Uses staticKey from Web.config appSettings/statickey. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "ResetPassword",
+					"id": "51068262-a9854c4f-7535-48e3-ad43-6de8c3ce033b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"NewPassword\": \"{{NewPassword}}\",\n  \"EmailId\": \"{{EmailId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/ResetPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"ResetPassword"
+							]
+						},
+						"description": "POST ResetPassword. Decrypted request model: NewPasswordRequest. Uses staticKey from Web.config appSettings/statickey. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-6888b8cd-32da-4b66-a46e-50bd6b18783d"
+		},
+		{
+			"name": "07 Notifications",
+			"item": [
+				{
+					"name": "SendOTPForMeterReading",
+					"id": "51068262-edba2a67-b47b-48ca-824b-d5ea1c4a6455",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  },\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"Search\": {\n    \"$number\": \"Search\"\n  },\n  \"deviceInfo\": {\n    \"MACAdress\": \"{{MACAdress}}\",\n    \"DeviceType\": \"{{DeviceType}}\",\n    \"MobileOS\": \"{{MobileOS}}\",\n    \"DeviceModel\": \"{{DeviceModel}}\",\n    \"DeviceToken\": \"{{DeviceToken}}\",\n    \"DeviceId\": \"{{DeviceId}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/SendOTPForMeterReading",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"SendOTPForMeterReading"
+							]
+						},
+						"description": "POST SendOTPForMeterReading. Decrypted request model: OTPForMeterReadingRequest. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				},
+				{
+					"name": "MRNotificationArrivalStatusSent",
+					"id": "51068262-fa7cac98-8b4c-4a0d-974b-304851424ee5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"GAId\": {\n    \"$number\": \"GAId\"\n  },\n  \"ConsumerNumber\": {\n    \"$number\": \"ConsumerNumber\"\n  },\n  \"DemandMasterId\": {\n    \"$number\": \"DemandMasterId\"\n  },\n  \"UserId\": {\n    \"$number\": \"UserId\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Services/MeterReading.svc/json/MRNotificationArrivalStatusSent",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Services",
+								"MeterReading.svc",
+								"json",
+								"MRNotificationArrivalStatusSent"
+							]
+						},
+						"description": "POST MRNotificationArrivalStatusSent. Decrypted request model: MRNotificationArrivalStatusRequest. Requires Token and the matching sessionKey from login. Edit the plaintext JSON template; the collection pre-request script encrypts it automatically. Numeric fields use {\"$number\":\"variableName\"} so values are validated and serialized as JSON numbers; you may replace these objects with literal numbers. This operation can modify records or send messages. Run individually with appropriate test data."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-a5d2bd2c-913a-4197-91c4-c1ec53eefbdd"
+		},
+		{
+			"name": "08 Scaffold SOAP service",
+			"item": [
+				{
+					"name": "SOAP GetData",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+									"pm.test('No SOAP fault', () => pm.expect(pm.response.text()).not.to.match(/<(?:\\w+:)?Fault[\\s>]/));"
+								],
+								"id": "8e16cdca-7ba6-4a8b-a8d0-abec985e1336"
+							}
+						}
+					],
+					"id": "51068262-3f2f6066-e0df-4fca-a092-25697b44ecbe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8"
+							},
+							{
+								"key": "SOAPAction",
+								"value": "\"http://tempuri.org/IService1/GetData\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body><GetData xmlns=\"http://tempuri.org/\"><value>{{soapValue}}</value></GetData></s:Body></s:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Service1.svc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Service1.svc"
+							]
+						},
+						"description": "Scaffold IService1 SOAP operation. Availability depends on WCF default endpoint activation on the host; the explicit Web.config service configuration only names MeterReading."
+					},
+					"response": []
+				},
+				{
+					"name": "SOAP GetDataUsingDataContract",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+									"pm.test('No SOAP fault', () => pm.expect(pm.response.text()).not.to.match(/<(?:\\w+:)?Fault[\\s>]/));"
+								],
+								"id": "027f1db5-d3ab-4ccb-ab74-c167217cb039"
+							}
+						}
+					],
+					"id": "51068262-1583714c-1878-4587-93f4-f2914aab15b0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8"
+							},
+							{
+								"key": "SOAPAction",
+								"value": "\"http://tempuri.org/IService1/GetDataUsingDataContract\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body><GetDataUsingDataContract xmlns=\"http://tempuri.org/\"><composite xmlns:a=\"http://schemas.datacontract.org/2004/07/GAILGAS_WCF\"><a:BoolValue>true</a:BoolValue><a:StringValue>Hello </a:StringValue></composite></GetDataUsingDataContract></s:Body></s:Envelope>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Service1.svc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Service1.svc"
+							]
+						},
+						"description": "Scaffold IService1 SOAP operation. Availability depends on WCF default endpoint activation on the host; the explicit Web.config service configuration only names MeterReading."
+					},
+					"response": []
+				}
+			],
+			"id": "51068262-671e439b-71a7-4f48-8e65-f307b67b7173"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5b0e195a-6117-4215-979c-ec487738405b",
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"if (!pm.info.requestName.startsWith('SOAP ')) {",
+					"const CryptoJS = require('crypto-js');",
+					"const route = pm.info.requestName;",
+					"const publicRoutes = ['VerifyIMEI', 'Login', 'Login_V1', 'ForgotPasswordEmailRequest', 'OTPVerification', 'NewPasswordChange', 'ResetPassword'];",
+					"const isPublic = publicRoutes.includes(route);",
+					"function required(name) {",
+					"    const value = pm.variables.get(name);",
+					"    if (value === undefined || value === null || String(value).trim() === '') throw new Error('Set collection or environment variable: ' + name);",
+					"    return String(value);",
+					"}",
+					"const keyName = isPublic ? 'staticKey' : 'sessionKey';",
+					"const key = required(keyName).replace(/\\s/g, '').toLowerCase();",
+					"if (!/^[0-9a-f]{64}$/.test(key) || key.match(/../g).includes('00')) throw new Error(keyName + ' must contain 64 hex characters and no 00 byte (Encryption.cs).');",
+					"pm.variables.set('_responseKey', key);",
+					"if (!isPublic) pm.request.headers.upsert({key: 'Token', value: required('token')});",
+					"else pm.request.headers.remove('Token');",
+					"if (route === 'Login' || route === 'Login_V1') { required('UserName'); required('Password'); }",
+					"function resolve(value) {",
+					"    if (typeof value === 'string') {",
+					"        return value.replace(/\\{\\{([^{}]+)\\}\\}/g, (_, name) => {",
+					"            const result = pm.variables.get(name);",
+					"            if (result === undefined || result === null) throw new Error('Missing variable: ' + name);",
+					"            return String(result);",
+					"        });",
+					"    }",
+					"    if (value && typeof value === 'object') {",
+					"        if (value.$number) {",
+					"            const raw = required(value.$number);",
+					"            const number = Number(raw);",
+					"            if (!Number.isFinite(number) || (Number.isInteger(number) && !Number.isSafeInteger(number))) throw new Error('Invalid or unsafe numeric value: ' + value.$number);",
+					"            return number;",
+					"        }",
+					"        if (Array.isArray(value)) return value.map(resolve);",
+					"        return Object.fromEntries(Object.entries(value).map(([k,v]) => [k,resolve(v)]));",
+					"    }",
+					"    return value;",
+					"}",
+					"const multipart = pm.request.body.mode === 'formdata';",
+					"const template = multipart ? pm.request.body.formdata.get('_payload') : pm.request.body.raw;",
+					"const payload = resolve(JSON.parse(template));",
+					"const iv = CryptoJS.lib.WordArray.random(16).toString().replace(/00/g, '11');",
+					"const hmacKey = CryptoJS.lib.WordArray.random(16).toString().replace(/00/g, '11');",
+					"const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(payload), CryptoJS.enc.Hex.parse(key), {",
+					"    iv: CryptoJS.enc.Hex.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7",
+					"}).ciphertext.toString();",
+					"// This protocol hashes UTF-8 hexadecimal text, not the decoded bytes.",
+					"const mac = CryptoJS.HmacSHA256((iv + ciphertext + key).toLowerCase(), CryptoJS.enc.Utf8.parse(hmacKey.toLowerCase())).toString();",
+					"const encrypted = iv + hmacKey + mac + ciphertext;",
+					"if (multipart) {",
+					"    pm.variables.set('encryptedRequest', encrypted);",
+					"    pm.request.headers.remove('Content-Type');",
+					"} else {",
+					"    pm.request.body.update(JSON.stringify({MessageRequest: encrypted}));",
+					"    pm.request.headers.upsert({key: 'Content-Type', value: 'application/json'});",
+					"}",
+					"",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fcf82f35-1a80-48a1-98ca-47dde2c643e3",
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"if (!pm.info.requestName.startsWith('SOAP ')) {",
+					"const CryptoJS = require('crypto-js');",
+					"function saveVariable(name, value) {",
+					"    pm.collectionVariables.set(name, value);",
+					"    // Update an existing environment override so it cannot shadow fresh login data.",
+					"    if (pm.environment.has(name)) pm.environment.set(name, value);",
+					"}",
+					"pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+					"let decoded;",
+					"pm.test('Authenticated encrypted JSON response', () => {",
+					"    const wire = pm.response.json().MessageResponse;",
+					"    pm.expect(wire).to.be.a('string');",
+					"    pm.expect(wire).to.match(/^[0-9a-f]+$/i);",
+					"    pm.expect(wire.length).to.be.above(128);",
+					"    const key = pm.variables.get('_responseKey');",
+					"    const iv = wire.slice(0,32), hmacKey = wire.slice(32,64), mac = wire.slice(64,128), cipher = wire.slice(128);",
+					"    const expected = CryptoJS.HmacSHA256((iv + cipher + key).toLowerCase(), CryptoJS.enc.Utf8.parse(hmacKey.toLowerCase())).toString();",
+					"    pm.expect(mac.toLowerCase(), 'Response HMAC').to.eql(expected);",
+					"    const text = CryptoJS.AES.decrypt({ciphertext: CryptoJS.enc.Hex.parse(cipher)}, CryptoJS.enc.Hex.parse(key), {",
+					"        iv: CryptoJS.enc.Hex.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7",
+					"    }).toString(CryptoJS.enc.Utf8);",
+					"    decoded = JSON.parse(text);",
+					"});",
+					"if (decoded) {",
+					"    saveVariable('lastResponse', JSON.stringify(decoded, null, 2));",
+					"    pm.visualizer.set('<pre>{{response}}</pre>', {response: JSON.stringify(decoded, null, 2)});",
+					"    const expectedStatus = Number(pm.variables.get('expectedStatus') || 1);",
+					"    pm.test('Application status = ' + expectedStatus, () => pm.expect(decoded.Status, decoded.Message).to.eql(expectedStatus));",
+					"    if (['Login', 'Login_V1'].includes(pm.info.requestName)) {",
+					"        const login = decoded.ResponseData;",
+					"        if ([1,5].includes(decoded.Status) && login && login.Token && login.Key) {",
+					"            saveVariable('token', login.Token);",
+					"            saveVariable('sessionKey', login.Key);",
+					"            saveVariable('UserId', String(login.UserID));",
+					"            saveVariable('GAId', String(login.GAId));",
+					"        } else {",
+					"            ['token', 'sessionKey', 'UserId', 'GAId'].forEach(k => saveVariable(k, ''));",
+					"        }",
+					"    }",
+					"}",
+					"",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:9093"
+		},
+		{
+			"key": "staticKey",
+			"value": ""
+		},
+		{
+			"key": "sessionKey",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "UserId",
+			"value": "0"
+		},
+		{
+			"key": "GAId",
+			"value": "0"
+		},
+		{
+			"key": "UserName",
+			"value": ""
+		},
+		{
+			"key": "Password",
+			"value": ""
+		},
+		{
+			"key": "OldPassword",
+			"value": ""
+		},
+		{
+			"key": "NewPassword",
+			"value": ""
+		},
+		{
+			"key": "IMEINo",
+			"value": ""
+		},
+		{
+			"key": "PageNo",
+			"value": "1"
+		},
+		{
+			"key": "Search",
+			"value": "0"
+		},
+		{
+			"key": "BPNumber",
+			"value": "0"
+		},
+		{
+			"key": "ConsumerNumber",
+			"value": "0"
+		},
+		{
+			"key": "Latitude",
+			"value": "0"
+		},
+		{
+			"key": "Longitude",
+			"value": "0"
+		},
+		{
+			"key": "EmailId",
+			"value": ""
+		},
+		{
+			"key": "OTP",
+			"value": ""
+		},
+		{
+			"key": "DeviceId",
+			"value": ""
+		},
+		{
+			"key": "DeviceToken",
+			"value": ""
+		},
+		{
+			"key": "DeviceModel",
+			"value": "Postman"
+		},
+		{
+			"key": "DeviceType",
+			"value": "Android"
+		},
+		{
+			"key": "MobileOS",
+			"value": ""
+		},
+		{
+			"key": "MACAdress",
+			"value": ""
+		},
+		{
+			"key": "ReadingDateStr",
+			"value": "2026-10-22"
+		},
+		{
+			"key": "ChequeDDDate",
+			"value": "2026-10-22"
+		},
+		{
+			"key": "AssignedBillsId",
+			"value": "0"
+		},
+		{
+			"key": "Cycle",
+			"value": "0"
+		},
+		{
+			"key": "WardId",
+			"value": "0"
+		},
+		{
+			"key": "MeterStatusId",
+			"value": "0"
+		},
+		{
+			"key": "PreviousReading",
+			"value": "0"
+		},
+		{
+			"key": "CurrentReading",
+			"value": "0"
+		},
+		{
+			"key": "UnitUsed",
+			"value": "0"
+		},
+		{
+			"key": "Remarks",
+			"value": ""
+		},
+		{
+			"key": "MeterType",
+			"value": ""
+		},
+		{
+			"key": "MeterNumber",
+			"value": ""
+		},
+		{
+			"key": "MeterReadingImage",
+			"value": ""
+		},
+		{
+			"key": "MeterBillReceiptImagePath",
+			"value": ""
+		},
+		{
+			"key": "DigitalSignatureImagePath",
+			"value": ""
+		},
+		{
+			"key": "MeterCompanyId",
+			"value": "0"
+		},
+		{
+			"key": "Status",
+			"value": "0"
+		},
+		{
+			"key": "Message",
+			"value": ""
+		},
+		{
+			"key": "MeterReading",
+			"value": ""
+		},
+		{
+			"key": "MeterReadingId",
+			"value": "0"
+		},
+		{
+			"key": "DigitalSignatureImg",
+			"value": ""
+		},
+		{
+			"key": "ChequeImage",
+			"value": ""
+		},
+		{
+			"key": "PaidAmount",
+			"value": "0"
+		},
+		{
+			"key": "ChequeNumber",
+			"value": ""
+		},
+		{
+			"key": "BankId",
+			"value": "0"
+		},
+		{
+			"key": "OtherBankName",
+			"value": ""
+		},
+		{
+			"key": "PaymentTypeId",
+			"value": "0"
+		},
+		{
+			"key": "PayableAmount",
+			"value": "0"
+		},
+		{
+			"key": "BillNumber",
+			"value": "0"
+		},
+		{
+			"key": "BillReceiptId",
+			"value": "0"
+		},
+		{
+			"key": "BillReceiptNumber",
+			"value": ""
+		},
+		{
+			"key": "Flag",
+			"value": "0"
+		},
+		{
+			"key": "BPName",
+			"value": ""
+		},
+		{
+			"key": "MobileNo",
+			"value": ""
+		},
+		{
+			"key": "Address",
+			"value": ""
+		},
+		{
+			"key": "Image",
+			"value": ""
+		},
+		{
+			"key": "DemandMasterId",
+			"value": "0"
+		},
+		{
+			"key": "expectedStatus",
+			"value": "1"
+		},
+		{
+			"key": "lastResponse",
+			"value": ""
+		},
+		{
+			"key": "soapValue",
+			"value": "123"
+		}
+	]
+}
