@@ -2389,7 +2389,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "5b0e195a-6117-4215-979c-ec487738405b",
+				"id": "4b86c2b9-a84b-4912-9e3b-70d8e45875ac",
 				"type": "text/javascript",
 				"requests": {},
 				"exec": [
@@ -2456,7 +2456,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "fcf82f35-1a80-48a1-98ca-47dde2c643e3",
+				"id": "5ae36f22-474f-485c-8787-814538505999",
 				"type": "text/javascript",
 				"requests": {},
 				"exec": [
